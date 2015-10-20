@@ -1,6 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+var User = require('./model/User');
 
 
 var app = express();
@@ -14,15 +15,12 @@ app.use(function (req, res, next) {
   next();
 });
 
-var User = mongoose.model('User', {
-  email: String,
-  password: String
-})
+
 
 app.post('/register', function (req, res) {
   var user = req.body;
 
-  var newUser = new User({
+  var newUser = new User.model({
     email: user.email,
     password: user.password
   });
