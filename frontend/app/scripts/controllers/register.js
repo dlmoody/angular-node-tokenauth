@@ -8,7 +8,7 @@
  * Controller of the angularNodeTokenauthApp
  */
 angular.module('angularNodeTokenauthApp')
-  .controller('RegisterCtrl', function ($scope, $rootScope, $http, alert) {
+  .controller('RegisterCtrl', function ($scope, $rootScope, $http, alert, authToken) {
     $scope.submit = function () {
       console.log("Registering new user");
 
@@ -22,6 +22,7 @@ angular.module('angularNodeTokenauthApp')
       $http.post(url, user)
         .success(function (res) {
           alert('success', 'OK!', 'You are now registered');
+          authToken.setToken(res.token);
         })
         .error(function (err) {
           alert('warning', 'Opps!', 'could not register');
