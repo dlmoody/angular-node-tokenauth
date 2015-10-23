@@ -1,4 +1,4 @@
-angular.module('angularNodeTokenauthApp').config(function($urlRouterProvider, $stateProvider){
+angular.module('angularNodeTokenauthApp').config(function($urlRouterProvider, $stateProvider, $httpProvider){
 
   $urlRouterProvider.otherwise('/');
 
@@ -24,4 +24,7 @@ angular.module('angularNodeTokenauthApp').config(function($urlRouterProvider, $s
       url: '/logout',
       controller: 'LogoutCtrl'
     });
-});
+
+    $httpProvider.interceptors.push('authInterceptor');
+})
+.constant('API_URL', 'http://localhost:3000/');
