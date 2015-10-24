@@ -8,25 +8,18 @@
  * Controller of the angularNodeTokenauthApp
  */
 angular.module('angularNodeTokenauthApp')
-  .controller('RegisterCtrl', function ($scope, $rootScope, $http, alert, authToken) {
+  .controller('RegisterCtrl', function ($scope, alert, auth) {
     $scope.submit = function () {
-      console.log("Registering new user");
 
-      var url = 'http://localhost:3000/register';
-
-      var user = {
-        email: $scope.email,
-        password: $scope.password
-      };
-
-      $http.post(url, user)
+      auth.register($scope.email, $scope.password)
         .success(function (res) {
-          alert('success', 'Account Created!', 'Welcome, ' + res.user.email + '!');
-          authToken.setToken(res.token);
+          alert('success', 'Account Created! ', 'Welcome, ' + res.user.email + '!');
         })
         .error(function (err) {
-          alert('warning', 'Opps!', 'could not register');
+          alert('warning', 'Opps!', err.message);
         });
+
+
 
     }
   });
