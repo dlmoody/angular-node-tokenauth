@@ -2,4 +2,5 @@
 /dist
 /.tmp
 /.sass-cache
+.env
 /bower_components
