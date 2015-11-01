@@ -6,6 +6,9 @@ var jwt = require('jwt-simple');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var request = require('request');
+var config = require('./config');
+var moment = require('moment');
+
 
 
 var app = express();
@@ -20,9 +23,10 @@ passport.serializeUser(function(user, done) {
 })
 
 app.use(function (req, res, next) {
-  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Origin', 'http://localhost:9000');
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
   res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.header('Access-Control-Allow-Credentials', 'true');
   next();
 });
 
@@ -93,7 +97,8 @@ app.post('/login', passport.authenticate('local-login') ,function(req, res) {
 
 function createSendToken(user, res) {
   var payload = {
-    sub: user.id
+    sub: user.id,
+    exp: moment().add(2, 'days').unix()
   };
 
   var token = jwt.encode(payload, "shhh...");
@@ -150,7 +155,7 @@ app.post('/auth/google', function(req, res) {
         json: true
       }, function(error, response, profile) {
         if(!err && response.statusCode == 200){
-          console.log(profile)
+
           var email = profile.emails[0].value;
           var name = profile.displayName;
           User.findOne({googleId: profile.id}, function(err, user) {
@@ -190,13 +195,13 @@ app.post('/auth/google', function(req, res) {
 function tokenParams(req) {
   var params = {
     code: req.body.code,
-    client_id: req.body.client_id,
-    client_secret: 'XKdNNbACtGuF2bl3D3hpIa8x',
-    redirect_uri: req.body.redirect_uri,
+    client_id: req.body.clientId,
+    client_secret: config.GOOGLE_SECRET,
+    redirect_uri: req.body.redirectUri,
     grant_type: 'authorization_code'
   }
+  console.log(params)
   return params
-  //return 'https://www.googleapis.com/oauth2/v3/token?' + requestUrl;
 
 }
 

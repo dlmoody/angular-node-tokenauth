@@ -1,4 +1,14 @@
-angular.module('angularNodeTokenauthApp').config(function($urlRouterProvider, $stateProvider, $httpProvider){
+angular.module('angularNodeTokenauthApp')
+.config(function($urlRouterProvider, $stateProvider, $httpProvider, $authProvider, API_URL){
+
+  $authProvider.loginUrl = API_URL + 'login';
+  $authProvider.signupUrl = API_URL + 'register';
+
+  $authProvider.google({
+     clientId: '889774383226-g2css862t42gkj1mr869v3s8rd2mh9ln.apps.googleusercontent.com',
+     url: API_URL + 'auth/google',
+   });
+
 
   $urlRouterProvider.otherwise('/');
 
@@ -36,6 +46,7 @@ angular.module('angularNodeTokenauthApp').config(function($urlRouterProvider, $s
 
     $httpProvider.interceptors.push('authInterceptor');
 })
+
 .constant('API_URL', 'http://localhost:3000/')
 
 .run(function($window) {

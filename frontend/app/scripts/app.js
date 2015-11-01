@@ -9,4 +9,4 @@
  * Main module of the application.
  */
 angular
-  .module('angularNodeTokenauthApp', ['ui.router', 'ngAnimate', 'nvd3']);
+  .module('angularNodeTokenauthApp', ['ui.router', 'ngAnimate', 'satellizer']);
