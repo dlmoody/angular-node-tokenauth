@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('angularNodeTokenauthApp')
 .config(function($urlRouterProvider, $stateProvider, $httpProvider, $authProvider, API_URL){
 
@@ -27,7 +29,7 @@ angular.module('angularNodeTokenauthApp')
     .state('login', {
       url: '/login',
       templateUrl: '/views/login.html',
-      controller: 'LoginCtrl'
+      controller: 'LoginCtrl as login'
     })
 
     .state('jobs', {
@@ -50,13 +52,13 @@ angular.module('angularNodeTokenauthApp')
 .constant('API_URL', 'http://localhost:3000/')
 
 .run(function($window) {
-  console.log('running run')
+  console.log('running run');
   var params = $window.location.search.substring(1);
   console.log(params);
   if(params && $window.opener && $window.opener.location.origin === $window.location.origin){
 
     var code = qs["code"];
-    $window.opener.postMessage(code, $window.location.origin)
+    $window.opener.postMessage(code, $window.location.origin);
   }
 
 });

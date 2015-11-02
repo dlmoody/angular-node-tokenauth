@@ -1,4 +1,4 @@
-<form ng-submit="submit()" name="register" class="form-signin" novalidate>
+<form ng-submit="login.submit()" name="register" class="form-signin" novalidate>
   <h1 class="form-signin-heading text-muted">Login</h1>
   <input name="email" ng-model="email" type="email" class="form-control" placeholder="Email address" autofocus="" required>
   <p class="help-block" ng-show="register.email.$dirty && register.email.$invalid">Please enter a proper email.</p>
@@ -10,7 +10,7 @@
   <br />
 
   <a class="text-muted pull-right" ui-sref="register">Create Account</a><br/>
-  <a ng-click="authenticate('google')" class="btn btn-block btn-social btn-google" type="button">
+  <a ng-click="login.authenticate('google')" class="btn btn-block btn-social btn-google" type="button">
     <span class="fa fa-google"></span>  Sign in with Google
   </a>
 </form>
