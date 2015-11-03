@@ -29,7 +29,8 @@ angular.module('angularNodeTokenauthApp')
     .state('login', {
       url: '/login',
       templateUrl: '/views/login.html',
-      controller: 'LoginCtrl as login'
+      controllerAs: 'login',
+      controller: 'LoginCtrl'
     })
 
     .state('jobs', {
